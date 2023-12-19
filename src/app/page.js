@@ -6,7 +6,6 @@ import { FaCloudRain } from "react-icons/fa6";
 export default function Home() {
   const [datum, setDatum]=useState('')
   const [bottonClick, setBottonClick]=useState(false)
-  const [loading, setLoading]=useState(false)
   const [formData,setFormData]=useState({
     location : ''
   })
@@ -20,22 +19,15 @@ export default function Home() {
     })
   }
   useEffect(()=>{
-    if(bottonClick === true){
-      const timing = setTimeout(()=>{
-        setBottonClick(false)
-        ready()
-      },5000)
-      return()=>{
-        clearTimeout(timing)
-      }
-    }
+  if(datum){
+    setBottonClick(false)
+  }
+  },[datum])
 
-    // if(loading === false && bottonClick === true){
 
-    // }
-  },[bottonClick,loading])
-
-  const ready = async ()=>{
+  const handleSubmit = async (e)=>{
+    e.preventDefault()
+    setBottonClick(true)
     const {location}=formData
     // console.log(formData)
     const api_key = 'd87dba1411494061b8632600230712'
@@ -44,12 +36,6 @@ export default function Home() {
     const data = await res.json()
     setDatum(data)
     console.log(data)
-  }
-
-  const handleSubmit = async (e)=>{
-    e.preventDefault()
-    setBottonClick(true)
-    setLoading(true)
   }
   return (
     <div className='md:flex md:flex-row w-full p-5 h-auto'>
