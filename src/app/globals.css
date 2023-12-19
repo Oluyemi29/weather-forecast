@@ -26,3 +26,36 @@ body{
     border: 2px solid white;
     color : white;
 }
+#show{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(46, 45, 45, 0.349);
+    align-items: center;
+    border-radius: 10px;
+}
+.loading{
+    z-index: 1;
+    width: 60px;
+    height: 60px;
+    border: 10px solid white;
+    color: white;
+    border-radius: 50%;
+    margin: 0 auto;
+    border-top-color: #56b99f;
+    animation: spining 1s infinite linear;
+}
+@keyframes spining{
+    
+    100%{
+        transform: rotate(360deg)
+    }
+}
+#hided{
+    display: none;
+}

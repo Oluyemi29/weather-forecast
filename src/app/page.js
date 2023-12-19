@@ -1,10 +1,12 @@
 'use client'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaCloudRain } from "react-icons/fa6";
 
 export default function Home() {
   const [datum, setDatum]=useState('')
+  const [bottonClick, setBottonClick]=useState(false)
+  const [loading, setLoading]=useState(false)
   const [formData,setFormData]=useState({
     location : ''
   })
@@ -17,8 +19,23 @@ export default function Home() {
       }
     })
   }
-  const handleSubmit = async (e)=>{
-    e.preventDefault()
+  useEffect(()=>{
+    if(bottonClick === true){
+      const timing = setTimeout(()=>{
+        setBottonClick(false)
+        ready()
+      },5000)
+      return()=>{
+        clearTimeout(timing)
+      }
+    }
+
+    // if(loading === false && bottonClick === true){
+
+    // }
+  },[bottonClick,loading])
+
+  const ready = async ()=>{
     const {location}=formData
     // console.log(formData)
     const api_key = 'd87dba1411494061b8632600230712'
@@ -28,8 +45,19 @@ export default function Home() {
     setDatum(data)
     console.log(data)
   }
+
+  const handleSubmit = async (e)=>{
+    e.preventDefault()
+    setBottonClick(true)
+    setLoading(true)
+  }
   return (
     <div className='md:flex md:flex-row w-full p-5 h-auto'>
+      <section id={bottonClick? "show":"hided"} className='flex flex-col justify-center'>
+        <div className='loading'>
+        </div>
+        <h2 className='text-white font-bold md:text-2xl texxt-md mt-5'>Loading...</h2>
+      </section>
       {/* <div>
         <form>
           <input onChange={handleChange} className='border-2 border-black rounded-sm' placeholder='Enter location' name='location' value={formData.location} />
